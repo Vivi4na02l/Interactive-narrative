@@ -1,3 +1,24 @@
+let isEmerTimer = Math.floor(Math.random() * 15)
+let time = 5 * 60
+let isTimerOn = false
+document.querySelector("#timer").style.visibility = 'hidden'
+
+setInterval(coundown5Min, 1000);
+function coundown5Min() {
+    if (isTimerOn) {
+        let minutes = Math.floor(time / 60)
+        let seconds = time % 60
+
+        if (seconds < 10) {
+            seconds = '0' + seconds
+        }
+
+        document.querySelector("#timer").innerHTML = `${minutes}:${seconds}`
+        time--
+    }
+}
+
+
 let arrayNarrador = [
     {
         scene: "intro",
@@ -105,6 +126,25 @@ let arrayPathChoice = [
                 id: "peCabra",
                 txt: "Pé de cabra"
             }
+        ],
+        narrador: [
+            {
+                id: 1,
+                isChoice: false,
+                txt: "Ponderas a possibilidade de forçar a abertura das portas do elevador, esperando que a sorte esteja do teu lado e o elevador tenha empancado num andar. Sabes que com a ferramenta certa, poderias forçar a abertura.",
+            },
+            {
+                id: 2,
+                isChoice: true,
+                txt: "Lembras-te do <span style='color: #b49c93'>pé de cabra</span> que escolheste. Pensas que ele pode ser a chave para abrir as portas. Com o <span style='color: #b49c93'>pé de cabra</span> nas mãos, questionas-te: deverás usá-lo para tentar abrir as portas?",
+                txt2: "Infelizmente, não tens nenhuma ferramenta para abrir as portas. Tentando com as mãos, percebes rapidamente que é impossível. Usas toda a tua força, mas a resistência é demasiada. Sentes a frustração crescer enquanto percebes que esta rota está bloqueada. Talvez seja melhor procurar outra opção de saída."
+            },
+            {
+                id: 3,
+                isChoice: false,
+                txt: "As portas abrem-se para revelar outra camada de portas do próprio andar. Com um suspiro, percebes que ainda há um obstáculo. Usas novamente o <span style='color: #b49c93'>pé de cabra</span>, forçando estas portas a abrirem-se. Com esforço e determinação, consegues finalmente abri-las, revelando um corredor iluminado.",
+                txt2: "As portas abrem-se para revelar uma parede cheia de tubos e teias de aranha, claramente não é uma rota de fuga viável. A frustração aperta enquanto percebes que esta saída não é possível. Talvez seja melhor procurar outra opção de saída. Quem sabe, num outro universo, tenhas tido a sorte de te deparares com um corredor."
+            },
         ]
     },
     {
@@ -147,7 +187,35 @@ let arrayPathChoice = [
     },
     {
         path: "btnEmer",
-        tools: []
+        state: "btnChoice",
+        tools: [],
+        narrador: [
+            {
+                id: 1,
+                isChoice: false,
+                txt: "Quase como por instinto, clicaste no botão de ajuda. Ao clicares, estavas com esperanças de ouvir uma voz humana que pudesse trazer-te algum conforto e auxílio. Para teu infortúnio, é uma voz artificial que responde.",
+            },
+            {
+                id: 2,
+                isChoice: false,
+                txt: '<i>"Olá, vi que clicou no botão de emergência. Após realizar um teste de diagnóstico, constatei que ocorreu um erro fatal no sistema. Infelizmente, sou incapaz de fazer coisa alguma para resolver o problema diretamente. Assim, chamarei ajuda.</i>"',
+            },
+            {
+                id: 3,
+                isChoice: false,
+                txt: 'Depois de alguns segundos de silêncio excruciante, começas a questionar se o AI realmente está a chamar ajuda ou se simplesmente avariou. "Porque é que deixei o telemóvel na carrinha?" pensas. Antes que a ansiedade te consumisse, o AI volta a falar.',
+            },
+            {
+                id: 4,
+                isChoice: false,
+                txt: `Relatório de emergência atualizado. Ajuda chegará em ${isEmerTimer} minutos. Aconselho-o a manter a calma e aguardar no local.`,
+            },
+            {
+                id: 5,
+                isChoice: true,
+                txt: "O tempo estimado parece interminável, e há uma sensação de inquietação que não consegues afastar. Ponderas se deves confiar na promessa do AI ou se deves tomar uma ação imediata para tentar outra rota de fuga. O peso da decisão recai sobre ti, o que vais fazer?",
+            },
+        ]
     }
 ]
 
@@ -159,7 +227,6 @@ let id = 0
 let path = 'none'
 let idChoosing = -1
 
-// alert(JSON.stringify(arrayNarrador.find(item => item.scene == currentScene)))
 
 document.querySelector("#btnNext").addEventListener('click', e => {
     id++
@@ -171,7 +238,6 @@ document.querySelector("#btnNext").addEventListener('click', e => {
     }
 
     else {
-        console.log("oi");
         document.querySelector("#txtNarrador").innerHTML = arrayNarrador.find(item => item.scene == currentScene).narrador[id].txt;
         document.querySelector("#img").src = arrayNarrador.find(item => item.scene == currentScene).narrador[id].img;
 
@@ -240,6 +306,10 @@ document.querySelector("#btnBefore").addEventListener('click', e => {
 //* no elevador, na fase em que se tem que escolher um caminho */
 
 function choosingPath() {
+    if (!isTimerOn) {
+        isTimerOn = true
+        document.querySelector("#timer").style.visibility = 'visible'
+    }
     idChoosing++
 
     if (idChoosing == 0) {
@@ -253,7 +323,7 @@ function choosingPath() {
 
             <div class="dflex jcc aic" style="width: 100%;">
                 <div class="choicesBox4">
-                    <div id="btnPathChoice" class="btnChoice dflex jcc aic" style="width: 100%;">
+                    <div id="btnPathChoice" class="${arrayPathChoice[3].state}  dflex jcc aic" style="width: 100%;">
                         <p id="btnEmer">Botão de emergência</p>
                     </div>
                     <div id="btnPathChoice" class="${arrayPathChoice[2].state} dflex jcc aic" style="width: 100%;">
@@ -269,25 +339,73 @@ function choosingPath() {
             </div>
         `
     } else {
-        if (chosenTools.find(item => item.id == arrayPathChoice.find(item => item.path == path).tools[0].id)) {
+        if (path == "btnEmer" || chosenTools.find(item => item.id == arrayPathChoice.find(item => item.path == path).tools[0].id)) {
             if (arrayPathChoice.find(item => item.path == path).narrador[idChoosing].isChoice) {
                 document.querySelector("#btnNext").style.visibility = 'hidden'
                 document.querySelector("#txtNarrador").innerHTML = arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt
                 
-                document.querySelector("#interactionsBox").innerHTML += `
-                    <div class="dflex fdc jcc aic" style="width: 100%">
-                        <div id="btnPathChosen" class="btnChoice dflex jcc aic" style="width: 100%;">
-                            <p>Usar item</p>
-                        </div>
+                if (path == "btnEmer") {
+                    document.querySelector("#interactionsBox").innerHTML += `
+                        <div class="dflex fdc jcc aic" style="width: 100%">
+                            <div id="btnPathChosen" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p>Esperar pela ajuda</p>
+                            </div>
 
-                        <div id="btnPathDenied" class="btnChoice dflex jcc aic" style="width: 100%;">
-                            <p>Investigar as outras opções primeiro.</p>
+                            <div id="btnPathDenied" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p>Investigar as outras opções.</p>
+                            </div>
                         </div>
-                    </div>
-                `
+                    `    
+
+                    arrayPathChoice.find(item => item.path == path).state = "btnDisabled"
+                } else {
+                    document.querySelector("#interactionsBox").innerHTML += `
+                        <div class="dflex fdc jcc aic" style="width: 100%">
+                            <div id="btnPathChosen" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p>Usar item</p>
+                            </div>
+
+                            <div id="btnPathDenied" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p>Investigar as outras opções primeiro.</p>
+                            </div>
+                        </div>
+                    `
+                }
 
                 document.querySelector("#btnPathChosen").addEventListener('click', e => {
                     if (path == "porta") {
+                        
+                        let randomNbr = Math.floor(Math.random() * 10); //entre 0 e 9
+                        let isDoorEscape = false
+
+                        if (randomNbr >= 8) {
+                            isDoorEscape = true
+                        }
+
+                        console.log(isDoorEscape);
+
+                        idChoosing++
+                        document.querySelector("#btnNext").style.visibility = 'visible'
+
+                        if (isDoorEscape) {
+                            document.querySelector("#interactionsBox").innerHTML = `
+                                <p class="montserrat" id="txtNarrador">
+                                    ${arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt}
+                                </p>
+                            `
+
+                            currentScene = path
+                        } else {
+                            document.querySelector("#interactionsBox").innerHTML = `
+                                <p class="montserrat" id="txtNarrador">
+                                    ${arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt2}
+                                </p>
+                            `
+
+                            idChoosing = -1
+                            arrayPathChoice.find(item => item.path == path).state = "btnDisabled"
+                        }
+                    } else if (path == "btnEmer") {
                         currentScene = path
                     } else {
                         idChoosing++
@@ -297,8 +415,6 @@ function choosingPath() {
                                 ${arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt}
                             </p>
                         `
-
-                        
                     }
                 })
 
@@ -314,7 +430,6 @@ function choosingPath() {
                         currentScene = path
                     } else {
                         document.querySelector("#txtNarrador").innerHTML = arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt2
-
                         idChoosing = -1
                         arrayPathChoice.find(item => item.path == path).state = "btnDisabled"
                     }

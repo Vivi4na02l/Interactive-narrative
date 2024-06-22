@@ -10,6 +10,14 @@ canvas {
     display: block;
 }
 
+#timer {
+    position: absolute;
+    top: 1%;
+    left: 2%;
+
+    background-color: #1A1515;
+}
+
 .w100 {
     width: 100%;
 }
