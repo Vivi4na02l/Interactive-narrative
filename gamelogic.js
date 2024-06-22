@@ -1,12 +1,15 @@
 let isEmerTimer = Math.floor(Math.random() * 15)
+let emergengyLucky = false
+
 let time = 5 * 60
 let isTimerOn = false
+let minutes
 document.querySelector("#timer").style.visibility = 'hidden'
 
 setInterval(coundown5Min, 1000);
 function coundown5Min() {
     if (isTimerOn) {
-        let minutes = Math.floor(time / 60)
+        minutes = Math.floor(time / 60)
         let seconds = time % 60
 
         if (seconds < 10) {
@@ -15,6 +18,10 @@ function coundown5Min() {
 
         document.querySelector("#timer").innerHTML = `${minutes}:${seconds}`
         time--
+
+        if (minutes == 0 && seconds == "00") {
+            isTimerOn = false
+        }
     }
 }
 
@@ -72,11 +79,179 @@ let arrayNarrador = [
             {
                 id: 5,
                 isChoice: false,
-                txt: "Olhas em volta e vês os elementos do elevador: um painel de controlo, o botão de emergência, o teto do elevador, as portas do elevador e uma janela panorâmica. Sentes um aperto no coração. Por algum motivo, achas que isto não é um simples bloqueio do elevador. A inquietação cresce à medida que pensas que podes entrar em queda livre a qualquer momento. A urgência de sair dali é avassaladora. Cada ferramenta que escolheste agora parece crucial para a tua sobrevivência. A tua inteligência e habilidade são a tua única esperança para interagir com os elementos do elevador e encontrar uma saída antes que seja tarde demais.",
+                txt: "Olhas em volta e vês possíveis opções de fuga: acionar o botão de emergência, escapar pelo teto do elevador, forçar abertura das próprias portas do elevador e partir a janela panorâmica. Sentes um aperto no coração. Por algum motivo, achas que isto não é um simples empanco de elevador. A inquietação cresce à medida que pensas que podes entrar em queda livre a qualquer momento. A urgência de sair dali é avassaladora. Cada ferramenta que escolheste agora parece crucial para a tua sobrevivência. A tua inteligência e habilidade são a tua única esperança para interagir com os elementos do elevador e encontrar uma saída antes que seja tarde demais.",
                 img: "images/elevator_vermelho.png"
             }
         ]
     },
+    {
+        scene: "teto",
+        narrador: [
+            {
+                id: 1,
+                isChoice: false,
+                txt: "Depois de alguns segundos a escanear a área à tua volta, apercebes-te que a tua única opção é subir ou descer uma escada vertical. Reparas também que, apesar de conseguires ver as portas, fechadas, de cada andar, não consegues acessá-las, pois a escada encontra-se num ângulo que impossibilita o uso do pé de cabra.",
+                img: "images/elevator_shaft.jpg"
+            },
+            {
+                id: 2,
+                isChoice: false,
+                txt: "Enquanto examinas a situação, ocorre-te uma ideia. Poderás chegar o mais próximo possível de uma porta de algum andar e berrar por ajuda. Talvez, com sorte, alguém ouça os teus gritos e abra as portas por fora, garantindo a tua saída.",
+                img: "images/elevator_shaft.jpg"
+            },
+            {
+                id: 1,
+                isChoice: true,
+                choices: [
+                    {
+                        id: "goUp",
+                        txt: "Subir",
+                        ending: false,
+                        consequences: [
+                            {
+                                id: 1,
+                                isChoice: false,
+                                txt: "Decides subir pela escada vertical, movendo-te com cuidado a cada passo. Depois de subires por alguns segundos, chegas a um andar onde consegues ouvir pessoas a caminhar pelo corredor. No entanto, quando tentas berrar por ajuda, as mesmas não te ouvem. Provavelmente por causa do facto de que estes andares mais para cima se encontram perto da festa do rooftop, que está a colocar música nas alturas.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 2,
+                                isChoice: false,
+                                txt: "Concluis que descer é a melhor opção. Os andares mais abaixo são provavelmente mais silenciosos e, consequentemente, aumentam as tuas chances de seres ouvido por alguém. Esta é uma rota mais lógica.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 3,
+                                isChoice: false,
+                                txt: "Descer é mais assustador do que subir. As tuas mãos começam a ficar suadas de tanto nervosismo e do esforço prolongado nas escadas. De repente, ouves estalos inquietantes vindos dos cabos que seguram o elevador. Sendo eletricista, sabes muito bem que esses sons são sinais alarmantes de que algo está prestes a falhar.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 4,
+                                isChoice: false,
+                                txt: "Apressas-te a descer mais rapidamente, na esperança de encontrar socorro antes que ocorra uma explosão ou que o elevador caia em queda livre. No entanto, a combinação de mãos suadas e a pressa em descer não é ideal.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 5,
+                                isChoice: false,
+                                txt: "Antes que possas reagir, escorregas da escada e...",
+                                img: "images/black.jpg"
+                            },
+                        ]
+                    },
+                    {
+                        id: "goDown",
+                        txt: "Descer",
+                        ending: true,
+                        consequences: [
+                            {
+                                id: 1,
+                                isChoice: false,
+                                txt: "Decides descer pela escada vertical. É um bocado assustador, já que isso significa que estás por debaixo do elevador. No entanto, quanto mais longe estiveres do som estridente da festa no rooftop, maiores serão as chances de alguém te ouvir a berrar.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 2,
+                                isChoice: false,
+                                txt: "Após alguns segundos a descer pelas escadas, começas a ouvir pessoas a caminhar pelo corredor. Em desespero, berras por ajuda, e, para tua surpresa, ouviram-te. O que parece ser um casal, tendo em conta as suas vozes, para para tentar ajudar-te. Enquanto o homem vai buscar algo para abrir as portas, a mulher fica a falar contigo.",
+                                img: "images/elevator_shaft.jpg"
+                            },
+                            {
+                                id: 3,
+                                isChoice: false,
+                                txt: "Ouvir uma voz humana depois de te meteres num buraco escuro como este é uma bênção, mesmo que não tenhas ficado nesse buraco durante muito tempo. O homem entretanto volta e consegue abrir a porta. Ele estende a mão e tu és oficialmente salvo.",
+                                img: "images/black.jpg"
+                            },
+                        ]
+                    },
+                ],
+                txt: "Com um plano já pensado, só resta colocá-lo em ação. No entanto, para tal, é preciso tomar uma decisão crucial: descer ou subir?",
+                img: "images/elevator_shaft.jpg"
+            },
+        ]
+    },
+    {
+        scene: "janela",
+        narrador: [
+            {
+                id: 1,
+                isChoice: false,
+                txt: "Ao saíres do elevador, deparas-te com a bela vista da cidade, acompanhada por uma brisa refrescante que te acaricia o rosto, proporcionando um ligeiro alívio à tensão acumulada.",
+                img: "images/city.jpg",
+            },
+            {
+                id: 2,
+                isChoice: true,
+                choices: [
+                    {
+                        id: "goUp",
+                        txt: "Escalar",
+                        ending: false,
+                        consequences: [
+                            {
+                                id: 1,
+                                isChoice: false,
+                                txt: "Decides escalar para cima, determinado a alcançar o rooftop. Cada movimento é feito com precisão e cuidado, consciente do perigo que a altura representa. A vista da cidade torna-se cada vez mais deslumbrante à medida que sobes, e a brisa fresca oferece um breve momento de paz, distraindo-te momentaneamente. Nesse instante de distração, agarras algo em falso e perdes o equilíbrio.",
+                                img: "images/city.jpg"
+                            },
+                            {
+                                id: 2,
+                                isChoice: false,
+                                txt: "A queda súbita é interrompida pela corda, que se aperta bruscamente, impedindo-te de cair para a tua morte. Ficas suspenso no ar, salvo pela corda, absolutamente em choque. A situação quase-morte parece quase cómica, e a adrenalina no teu corpo provoca uma reação inesperada: começas a rir escandalosamente de nervoso. As lágrimas correm-te pelo rosto enquanto ris, a mistura de alívio e terror a tomar conta de ti.",
+                                img: "images/city.jpg"
+                            },
+                            {
+                                id: 3,
+                                isChoice: false,
+                                txt: "Quando finalmente páras de rir, exausto, começas a reajustar-te, tentando puxar-te para cima. No entanto, nesse momento crucial, a corda rebenta subitamente...",
+                                img: "images/black.jpg"
+                            },
+                        ]   
+                    },
+                    {
+                        id: "stayLevel",
+                        txt: "Permanecer no mesmo nível",
+                        ending: true,
+                        consequences: [
+                            {
+                                id: 1,
+                                isChoice: false,
+                                txt: "Optas por seguir no mesmo nível, movendo-te cuidadosamente pelo exterior do edifício. Cada passo é tomado com extrema cautela, atento a cada detalhe do caminho à tua frente. A brisa refrescante continua a soprar, ajudando a manter a tua mente focada e calma. Enquanto avanças, encontras uma janela entreaberta. Com um esforço calculado, consegues abri-la completamente e entrar.",
+                                img: "images/city.jpg"
+                            },
+                            {
+                                id: 2,
+                                isChoice: false,
+                                txt: "Ao entrar, deparas-te com um apartamento bem decorado, iluminado por luzes suaves. O ambiente é acolhedor, com móveis modernos e objetos pessoais espalhados pela sala, evidenciando o conforto e a vida familiar do local. Antes que possas processar e explicar o que aconteceu, ouves um grito. Várias pessoas estão na sala de estar, e ao verem-te entrar inesperadamente pela janela, ficam aterrorizadas.",
+                                img: "images/city.jpg"
+                            },
+                            {
+                                id: 3,
+                                isChoice: false,
+                                txt: "A família residente, composta por um casal e duas crianças, recua em pânico. O homem tenta proteger a sua família enquanto a mulher, com mãos trémulas, pega no telefone e chama a polícia. Tentaste explicar, mas as tuas palavras saem confusas e apressadas, misturadas com a adrenalina e o choque do momento. Os poucos minutos que se seguem parecem uma eternidade, enquanto aguardas a chegada das autoridades.",
+                                img: "images/black.jpg"
+                            },
+                        ]   
+                    }
+                ],
+                txt: "Observando o teu redor, identificas duas opções viáveis: escalar para cima até alcançar o rooftop, que parece estar apenas a cerca de três andares de distância, ou seguir no mesmo nível onde te encontras atualmente.",
+                img: "images/city.jpg",
+            },
+        ]
+    },
+    {
+        scene: "btnEmer",
+        ending: emergengyLucky,
+        narrador: [
+            {
+                id: 1,
+                isChoice: false,
+                txt: "Decides aguardar, focando-te na respiração e tentando acalmar os pensamentos ansiosos que invadem a tua mente. Apesar do tempo parecer arrastar-se e cada minuto transformar-se numa pequena eternidade, confias que a ajuda está a caminho.",
+                img: "images/elevator_vermelho.png"
+            }
+        ]
+    }
 ]
 
 let arrayPathChoice = [
@@ -227,6 +402,10 @@ let id = 0
 let path = 'none'
 let idChoosing = -1
 
+let ending, isGoodEnding
+let idEnding = 0
+let endingConsequences = false
+
 
 document.querySelector("#btnNext").addEventListener('click', e => {
     id++
@@ -238,50 +417,146 @@ document.querySelector("#btnNext").addEventListener('click', e => {
     }
 
     else {
-        document.querySelector("#txtNarrador").innerHTML = arrayNarrador.find(item => item.scene == currentScene).narrador[id].txt;
-        document.querySelector("#img").src = arrayNarrador.find(item => item.scene == currentScene).narrador[id].img;
+        if (endingConsequences) {
+            idEnding++
 
-        if (arrayNarrador.find(item => item.scene == currentScene).narrador[id].isChoice) {
-            document.querySelector("#btnNext").style.visibility = 'hidden'
-            document.querySelector("#btnBefore").style.visibility = 'hidden'
+            //* BAD ENDING */
+            if (idEnding == ending.length && !isGoodEnding) {
+                document.querySelector("#txtNarrador").innerHTML = "Parece que falhaste em escapar em segurança do elevador..."
+                document.querySelector("#img").src = "images/heaven.jpg"
+                document.querySelector("#btnNext").style.visibility = 'hidden'
+                document.querySelector("#btnBefore").style.visibility = 'hidden'
 
-            if (currentScene == "intro") {
-                let choicesBox = `<div class="choicesBox4">`
-                for (const choice of arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices) {
-                    choicesBox += `
-                        <div id="${choice.group}" class="btnChoice dflex jcc aic" style="width: 100%;">
-                            <p id="${choice.id}">${choice.txt}</p>
-                        </div>
-                    `
-                }
+                isTimerOn = false
+                document.querySelector("#timer").innerHTML = 'Bad ending :('
+            }
+            //* GOOD ENDING */
+            else if (idEnding == ending.length && isGoodEnding) {
+                if (currentScene == "janela") {
+                    document.querySelector('#txtNarrador').innerHTML = "Pouco depois, ouvem-se sirenes, e os polícias entram rapidamente no apartamento, neutralizando a situação. Sem muito tempo para dar explicações, és algemado e levado para fora do edifício. Agora, estás na parte de trás do carro da polícia, a caminho da esquadra. Sobreviveste, mas de que serviu?"
+                    document.querySelector("img").src = "images/police.jpg"
+                    document.querySelector("#btnNext").style.visibility = 'hidden'
+                    document.querySelector("#btnBefore").style.visibility = 'hidden'
 
-                choicesBox += `</div>`
-                document.querySelector("#interactionsBox").innerHTML += choicesBox
+                    isTimerOn = false
+                    document.querySelector("#timer").innerHTML = 'Neutral ending?'
+                } else {
+                    document.querySelector("#txtNarrador").innerHTML = "Conseguiste sobreviver a este acidente do elevador. No entanto, para o teu chefe, escapar de uma situação tão assustadora não significa nada, obrigando-te a prosseguir com o trabalho. Desta vez, quando tiveste que ir à carrinha, fizeste questão de utilizar as escadas..."
+                    document.querySelector("img").src = "images/rooftop.jpg"
+                    document.querySelector("#btnNext").style.visibility = 'hidden'
+                    document.querySelector("#btnBefore").style.visibility = 'hidden'
 
-                for (const btnTool of document.querySelectorAll(`#chooseTools`)) {
-                    btnTool.addEventListener('click', e => {
-                        if (chosenTools.length < 2 && (chosenTools.length == 0 || !chosenTools.find(item => item.id == btnTool.children[0].id))) {
-                            chosenTools.push({
-                                id: btnTool.children[0].id,
-                                txt: btnTool.children[0].innerHTML
-                            })
-                        }
-                        btnTool.classList.add("btnChoiceActive")
-
-                        if (chosenTools.length >= 2) {
-                            document.querySelector("#btnNext").style.visibility = 'visible'
-                            document.querySelector("#interactionsBox").innerHTML = `<p class="montserrat" id="txtNarrador">
-                                Com um olhar atento, avalias as ferramentas à tua disposição. Decides pegar as ferramentas <span style="color: #b49c93">${chosenTools[0].txt}</span> e <span style="color: #b49c93">${chosenTools[1].txt}</span>, recolhendo-as com determinação. Agora, estás pronto para descer até à tua carrinha de serviço.
-                            </p>`
-                        }
-                    })
+                    isTimerOn = false
+                    document.querySelector("#timer").innerHTML = 'Good ending :)'
                 }
             }
+            //* NOT ENDING YET */
+            else {
+                document.querySelector("#txtNarrador").innerHTML = ending[idEnding].txt
+                document.querySelector("#img").src = ending[idEnding].img
+            }
+        }
 
-        } else if (id != 1 && arrayNarrador.find(item => item.scene == currentScene).narrador[id-1].isChoice) {
-            document.querySelector("#btnBefore").style.visibility = 'hidden'
-        } else {
-            document.querySelector("#btnBefore").style.visibility = 'visible'
+        //* BOTÃO EMERGÊNCIA */
+        else if (id == 1 && currentScene == "btnEmer") {
+
+            //* GOOD ENDING */
+            if (arrayNarrador.find(item => item.scene == currentScene).ending) {
+                document.querySelector('#txtNarrador').innerHTML = "Os minutos parecem eternos, mas finalmente ouves vozes e passos no corredor. A esperança renasce dentro de ti. Baterias e gritos de socorro são respondidos por vozes tranquilizadoras. Conseguem abrir as portas do elevador e, com cuidado, ajudam-te a sair do espaço confinado. A luz do corredor parece incrivelmente brilhante comparada à penumbra do elevador. A sensação de alívio é esmagadora enquanto és levado para a segurança, rodeado por rostos preocupados mas amigáveis. Estás finalmente a salvo, e a terrível experiência começa a transformar-se em passado."
+                document.querySelector("#img").src = "images/techs.jpg"
+                document.querySelector("#btnNext").style.visibility = 'hidden'
+                document.querySelector("#btnBefore").style.visibility = 'hidden'
+
+                isTimerOn = false
+                document.querySelector("#timer").innerHTML = 'Good ending :)'
+            }
+            //* BAD ENDING */
+            else {
+                document.querySelector('#txtNarrador').innerHTML = "Os minutos passam e a tensão aumenta. Começas a ouvir estalos vindos dos cabos do elevador, um som que reconheces imediatamente como um sinal de falha iminente. A sensação de pavor toma conta de ti enquanto o elevador dá um solavanco súbito. Num instante aterrador, sentes o elevador começar a cair em queda livre. O pânico consome-te, e apesar dos teus gritos, tudo acontece demasiado depressa. O impacto é devastador, e num piscar de olhos, a escuridão total toma conta de ti."
+                document.querySelector("#img").src = "images/black.jpg"
+                document.querySelector("#btnNext").style.visibility = 'hidden'
+                document.querySelector("#btnBefore").style.visibility = 'hidden'
+
+                isTimerOn = false
+                document.querySelector("#timer").innerHTML = 'Bad ending :('
+            }
+        }
+
+        else {
+            document.querySelector("#txtNarrador").innerHTML = arrayNarrador.find(item => item.scene == currentScene).narrador[id].txt;
+            document.querySelector("#img").src = arrayNarrador.find(item => item.scene == currentScene).narrador[id].img;
+
+            if (arrayNarrador.find(item => item.scene == currentScene).narrador[id].isChoice) {
+                document.querySelector("#btnNext").style.visibility = 'hidden'
+                document.querySelector("#btnBefore").style.visibility = 'hidden'
+
+                if (currentScene == "intro") {
+                    let choicesBox = `<div class="choicesBox4">`
+                    for (const choice of arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices) {
+                        choicesBox += `
+                            <div id="${choice.group}" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p id="${choice.id}">${choice.txt}</p>
+                            </div>
+                        `
+                    }
+
+                    choicesBox += `</div>`
+                    document.querySelector("#interactionsBox").innerHTML += choicesBox
+
+                    for (const btnTool of document.querySelectorAll(`#chooseTools`)) {
+                        btnTool.addEventListener('click', e => {
+                            if (chosenTools.length < 2 && (chosenTools.length == 0 || !chosenTools.find(item => item.id == btnTool.children[0].id))) {
+                                chosenTools.push({
+                                    id: btnTool.children[0].id,
+                                    txt: btnTool.children[0].innerHTML
+                                })
+                            }
+                            btnTool.classList.add("btnChoiceActive")
+
+                            if (chosenTools.length >= 2) {
+                                document.querySelector("#btnNext").style.visibility = 'visible'
+                                document.querySelector("#interactionsBox").innerHTML = `<p class="montserrat" id="txtNarrador">
+                                    Com um olhar atento, avalias as ferramentas à tua disposição. Decides pegar as ferramentas <span style="color: #b49c93">${chosenTools[0].txt}</span> e <span style="color: #b49c93">${chosenTools[1].txt}</span>, recolhendo-as com determinação. Agora, estás pronto para descer até à tua carrinha de serviço.
+                                </p>`
+                            }
+                        })
+                    }
+                }
+
+                else {
+                    document.querySelector("#interactionsBox").innerHTML += `
+                        <div class="dflex fdc jcc aic" style="width: 100%">
+                            <div id="btnConsequences" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p id=${arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices[0].id}>
+                                    ${arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices[0].txt}
+                                </p>
+                            </div>
+
+                            <div id="btnConsequences" class="btnChoice dflex jcc aic" style="width: 100%;">
+                                <p id=${arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices[1].id}>
+                                    ${arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices[1].txt}
+                                </p>
+                            </div>
+                        </div>
+                    `
+
+                    for (const btnConsequence of document.querySelectorAll("#btnConsequences")) {
+                        btnConsequence.addEventListener('click', e => {
+                            endingConsequences = true;
+                            isGoodEnding = arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices.find(item => item.id == btnConsequence.children[0].id).ending
+                            ending = arrayNarrador.find(item => item.scene == currentScene).narrador[id].choices.find(item => item.id == btnConsequence.children[0].id).consequences
+
+                            document.querySelector("#btnNext").style.visibility = 'visible'
+                            document.querySelector("#interactionsBox").innerHTML = `<p class="montserrat" id="txtNarrador">${ending[idEnding].txt}</p>`
+                        })
+                    }
+                }
+
+            } else if (id != 0 && id != 1 && arrayNarrador.find(item => item.scene == currentScene).narrador[id-1].isChoice) {
+                document.querySelector("#btnBefore").style.visibility = 'hidden'
+            } else {
+                document.querySelector("#btnBefore").style.visibility = 'visible'
+            }
         }
     }
 })
@@ -394,6 +669,7 @@ function choosingPath() {
                                 </p>
                             `
 
+                            id = -1
                             currentScene = path
                         } else {
                             document.querySelector("#interactionsBox").innerHTML = `
@@ -406,7 +682,20 @@ function choosingPath() {
                             arrayPathChoice.find(item => item.path == path).state = "btnDisabled"
                         }
                     } else if (path == "btnEmer") {
+                        id = -1
                         currentScene = path
+
+                        if (isEmerTimer < minutes) {
+                            emergengyLucky = true
+                            arrayNarrador.find(item => item.scene == currentScene).ending = true
+                        }
+
+                        document.querySelector("#btnNext").style.visibility = 'visible'
+                        document.querySelector("#interactionsBox").innerHTML = `
+                            <p class="montserrat" id="txtNarrador">
+                                Não consegues afastar esta sensação de inquietação que te consome, mas tentas racionalizar a situação, parando para pensar logicamente. Simplesmente esperar que a ajuda chegue parece ser a melhor opção. Assim, deixas-te escorregar lentamente até te sentares no chão do elevador. A luz vermelha de emergência ilumina o espaço de forma fantasmagórica, e cada som parece amplificado na tua mente.
+                            </p>
+                        `
                     } else {
                         idChoosing++
                         document.querySelector("#btnNext").style.visibility = 'visible'
@@ -427,6 +716,7 @@ function choosingPath() {
                     if (path != "porta" && chosenTools.find(item => item.id == arrayPathChoice.find(item => item.path == path).tools[1].id)) {
                         document.querySelector("#txtNarrador").innerHTML = arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt
 
+                        id = -1
                         currentScene = path
                     } else {
                         document.querySelector("#txtNarrador").innerHTML = arrayPathChoice.find(item => item.path == path).narrador[idChoosing].txt2
