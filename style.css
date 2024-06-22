@@ -1,0 +1,159 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #1A1515;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+canvas {
+    display: block;
+}
+
+.w100 {
+    width: 100%;
+}
+
+p {
+    color: #d9d9d9;
+    font-size: larger;
+    text-align: justify;
+    line-height: 1.2;
+}
+
+
+/** font */
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+}
+
+
+
+/** CSS for structuring */
+.dflex {
+    display: flex;
+} .dif {
+    display: inline-flex;
+}
+
+.fdc {
+    flex-direction: column;
+} .fdr {
+    flex-direction: row;
+} .fdcr {
+    flex-direction: column-reverse;
+}
+
+.jcc {
+    justify-content: center;
+} .jcsa {
+    justify-content: space-around;
+} .jcsb {
+    justify-content: space-between;
+}
+
+.aic {
+    align-items: center;
+}
+
+
+/** CSS of buttons */
+.btn {
+    cursor: pointer;
+
+    background-image: linear-gradient(to bottom right, #5c3e32, #4d3125);
+    border-radius: 15px;
+} .btn:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #4d3125;
+    box-shadow: 0px 0px 20px 5px #4d3125;
+}
+
+
+.btnChoice {
+    cursor: pointer;
+
+    color: #d9d9d9;
+    background-color: #4d31256a;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5c3e32;
+    border-radius: 10px;
+
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+} .btnChoice:hover {
+    cursor: pointer;
+
+    color: #d9d9d9;
+    background-color: #5c3e32;
+
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+} .btnChoiceActive {
+    cursor: pointer;
+
+    color: #d9d9d9;
+    background-color: #5c3e32;
+
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.btnDisabled {
+    color: #9797977d;
+    background-color: #3a29227d;
+
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.choicesBox4 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5%;
+}
+
+/* .btn p {
+    text-shadow: #000 5px 0px 5px,
+                #000 -5px 0px 5px,
+                #000 0px 5px 5px,
+                #000 0px -5px 5px;
+} .btn p:hover {
+    color: #000;
+    text-shadow: #973636 5px 0px 5px,
+                #973636 -5px 0px 5px,
+                #973636 0px 5px 5px,
+                #973636 0px -5px 5px;
+} */
+
+.btnAgain {
+    cursor: pointer;
+
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000;
+    background-color: #000;
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 20px 5px #000;
+
+    color: #fff;             
+} .btnAgain:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #973636;
+    box-shadow: 0px 0px 20px 5px #9736369b;
+    text-shadow: #973636c4 5px 0px 5px,
+                #973636c4 -5px 0px 5px,
+                #973636c4 0px 5px 5px,
+                #973636c4 0px -5px 5px;
+}
